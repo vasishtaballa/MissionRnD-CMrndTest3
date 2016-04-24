@@ -78,6 +78,7 @@ bool inorder_wrapper(node_dll *head, node * root)
 	inorder_wrapper(head, root->left);
 	if (head->data != root->data)
 		return false;
+	head=head->next;
 	inorder_wrapper(head, root->right);
 }
 
@@ -88,9 +89,10 @@ bool inorder(struct node_dll *head,struct node *root)
 	return inorder_wrapper(head,root);
 }
 
-
 int is_identical(struct node_dll *head, struct node *root)
 {
+	if (root == NULL || head == NULL)
+		return -1;
 	if (inorder(head, root))
 		return 1;
 	else
