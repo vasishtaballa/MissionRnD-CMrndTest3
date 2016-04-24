@@ -71,6 +71,29 @@ struct node{
 	struct node *right;
 };
 
-int is_identical(struct node_dll *head, struct node *root){
+bool inorder_wrapper(node_dll *head, node * root)
+{
+	if (root == NULL)
+		return true;
+	inorder_wrapper(head, root->left);
+	if (head->data != root->data)
+		return false;
+	inorder_wrapper(head, root->right);
+}
+
+bool inorder(struct node_dll *head,struct node *root)
+{
+	if (root == NULL)
+		return false;
+	return inorder_wrapper(head,root);
+}
+
+
+int is_identical(struct node_dll *head, struct node *root)
+{
+	if (inorder(head, root))
+		return 1;
+	else
+		return 0;
 	return -1;
 }

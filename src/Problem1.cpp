@@ -50,7 +50,20 @@ struct node{
 	struct node *right;
 };
 
+void add(node *root, int *sum)
+{
+	if (root == NULL)
+		return;
+	add(root->left, sum);
+	*sum = *sum + root->data;
+	add(root->right, sum);
+}
 
-int get_missing_value(struct node *root,int n){
-    return -1;
+int get_missing_value(struct node *root,int n)
+{
+	if (root == NULL || n < 0)
+		return -1;
+	int sum = 0;
+	add(root, &sum);
+	return (n*(n + 1) / 2) - sum;
 }
